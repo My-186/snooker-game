@@ -59,9 +59,9 @@ function draw() {
     background(255);
     table.draw();
     balls.forEach((ball) => ball.draw());
-    // cue.draw(whiteBall.posX, whiteBall.posY);
+    cue.draw(whiteBall.posX, whiteBall.posY);
 
-    // checkBallsInPocket();
+    checkBallsInPocket();
     checkBallsStopped();
 
     if (allowNextShot) {
@@ -72,9 +72,8 @@ function draw() {
 }
 
 function mouseClicked() {
-    if (true) {
-        // let speed = 0.007 * (-1);
-        let speed = 0.002;
+    if (allowNextShot) {
+        let speed = 0.007 * (-1);
         let vector = { x: mouseX - whiteBall.posX() , y: mouseY - whiteBall.posY() }; // ball-to-mouse vector
         let vectorLength = Math.sqrt(Math.pow(vector.x, 2) + Math.pow(vector.y, 2));
         let movementVector = {x: (vector.x / vectorLength) * speed, y: (vector.y / vectorLength) * speed}; // normalized vector * speed
