@@ -1,0 +1,53 @@
+Task/steps
+Jan 3th,
+1. Define your variables for the table, balls and the cue. Store the balls in appropriate
+arrays
+2. Draw the snooker table in the middle of the canvas using the correct colours,
+pockets and lines as described above. A detailed table will receive higher marks
+
+3. Draw the balls in three modes a) Mode 1: using keystroke “1”, b) Mode 2: random
+positions (for reds only) in clusters using keystroke “2”, c) Mode 3: practice mode
+(for reds only) using keystroke “3”. You should use nested loops and random
+functions. The coloured balls should also be present in the table.
+
+
+★4. Give all balls the necessary restitution (for bouncing) and friction (for slowing
+down). You are expected to use matter.js
+5. Draw the cue. Here you have a few options: use the mouse, keyboard or a
+combination of them to draw and manipulate the cue so you can hit the cue ball.
+Top marks will be awarded when using both mouse and key interaction. Points will
+be reduced if the cue is acting as an elastic band. You are expected to use
+matter.js and adjust the necessary parameters accordingly.
+
+Jan 4th. 
+6. The cue ball is inserted (in the “D” zone) using human interaction as above, i.e.
+use the right combination of key/mouse etc. Points will be reduced if the cue ball
+is already in place at the start of the game or can be inserted outside the “D”.
+7. Cushions should also have the necessary physics properties (i.e. restitution) for
+bouncing the balls (different from the ones the balls have). You are expected to
+use matter.js
+
+Jan 5th,
+8. Animations and Visual Feedback. To enhance the visual appeal of your snooker
+app, implement the following animations. You will be assessed on how you use
+update and draw functions as well as for the final visual result.
+a. Ball Trail Effect: When a ball moves, show a fading trail behind it to indicate
+speed and direction
+b. Cue Impact: Animate a brief flash, or animated emanating circles effect
+when the cue strikes the cue ball. This should be localised near the impact
+c. Pocket Entry: Animate the pocket when a ball is potted e.g. shrinking or
+fading out to indicate entry
+
+
+Introduction
+During the course so far, we have developed a number of graphics applications using
+P5js. For this assignment you are tasked with developing a snooker app. You have to
+draw the snooker table with pockets, lines etc., add the balls and the cue. A standard full-
+size snooker table measures 12 ft × 6 ft. Here you choose the size of the table in pixels,
+but you should maintain the ratio i.e., table width = table length / 2.
+The ball size is approximately 2 inches in diameter so you could use the formula below
+ball diameter = table width / 36.
+The pocket size should be 1.5 times the size of the ball’s diameter. The cue ball is only
+inserted in the “D” zone. Use the Snooker wiki (https://en.wikipedia.org/wiki/Snooker) for
+more detailed information so you can complete the table as seen below.
+Mode 1
