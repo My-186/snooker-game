@@ -9,13 +9,13 @@ class Table {
         this.posY = 50;
     
         this.pockets = [
-    　　    new Pocket(this.posX + this.borderWidth + 10.6, this.posY + this.borderWidth + 10.6),// upper left
-      　　  new Pocket((this.posX + this.tableWidth) - this.borderWidth - 10.6, this.posY + this.borderWidth + 10.6),// upper right4
+            new Pocket(this.posX + this.borderWidth + 10.6, this.posY + this.borderWidth + 10.6),// upper left
+            new Pocket((this.posX + this.tableWidth) - this.borderWidth - 10.6, this.posY + this.borderWidth + 10.6),// upper right4
             //     [this.posX + this.fieldWidth / 2 + this.borderWidth, this.posY + this.borderWidth], // upper middle
             new Pocket(this.posX + this.borderWidth + 10.6, (this.posY + this.tableHeight) - this.borderWidth - 10.6),// lower left
             new Pocket((this.posX + this.tableWidth) - this.borderWidth - 10.6, (this.posY + this.tableHeight) - this.borderWidth - 10.6),// lower right 
-        　　//     [this.posX +  this.fieldWidth / 2 + this.borderWidth, (this.posY + this.tableHeight) - this.borderWidth] // lower middle
-　　　　]
+            //     [this.posX +  this.fieldWidth / 2 + this.borderWidth, (this.posY + this.tableHeight) - this.borderWidth] // lower middle
+        ]
 
         this.upperWallPos = {x: this.posX + this.borderWidth + this.fieldWidth / 2, y: this.posY + this.borderWidth / 2};
         this.lowerWallPos = {x: this.posX + this.borderWidth + this.fieldWidth / 2, y: this.posY + this.fieldHeight + this.borderWidth * 1.5};
@@ -60,4 +60,20 @@ class Table {
     }
 
 }
-　　
+
+class Pocket {
+    constructor(posX, posY) {
+        this.posX = posX;
+        this.posY = posY;
+        this.diameter = 30;
+    }
+
+    radius() {
+        return this.diameter / 2;
+    }
+
+    draw(){
+        fill(0); // black
+        ellipse(this.posX, this.posY, this.diameter);
+    }
+}
