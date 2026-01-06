@@ -9,10 +9,14 @@ var Engine = Matter.Engine,
 
 var engine;
 
-const CANVAS_WIDTH = 2000;
-const CANVAS_HEIGHT = 1000;
+const CANVAS_WIDTH = 1400;
+const CANVAS_HEIGHT = 800;
 
-const table = new Table(1200,600); 
+// center table in canvas
+const tablePosX = (CANVAS_WIDTH - TABLE_WIDTH) / 2;
+const tablePosY = (CANVAS_HEIGHT - TABLE_HEIGHT) / 2;
+const table = new Table(tablePosX, tablePosY);
+
 const whiteBall = new Ball(500, 300, '#ffffff');
 const balls = [
     new Ball(500, 120, '#a00b2bff'),
@@ -38,6 +42,10 @@ var allowNextShot = false;
 
 function setup() {
     const canvas = createCanvas(CANVAS_WIDTH, CANVAS_HEIGHT);
+    // position canvas at center
+    const canvasPosX = (windowWidth - CANVAS_WIDTH) / 2;
+    const canvasPosY = (windowHeight - CANVAS_HEIGHT) / 2;
+    canvas.position(canvasPosX, canvasPosY); 
 
     engine = Engine.create();// create an engine
     engine.gravity.scale = 0;
@@ -72,7 +80,6 @@ function mouseClicked() {
         Matter.Body.applyForce(whiteBall.body, whiteBall.body.position, movementVector); 
     }
 }
-
 
 function checkBallsInPocket() {
     for (let i = 0; i < balls.length; i++) {
