@@ -17,7 +17,7 @@ const tablePosX = (CANVAS_WIDTH - TABLE_WIDTH) / 2;
 const tablePosY = (CANVAS_HEIGHT - TABLE_HEIGHT) / 2;
 const table = new Table(tablePosX, tablePosY);
 
-const whiteBall = new Ball(500, 300, '#ffffff');
+const whiteBall = new Ball(500, 300, '#ffffe9ff');
 const balls = [
     new Ball(500, 120, '#a00b2bff'),
     new Ball(500, 150, '#a00b2bff'),

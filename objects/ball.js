@@ -24,6 +24,11 @@ class Ball {
         push(); 
         fill(color(this.color));
         ellipse(position.x, position.y, this.diameter);
+        fill(255, 255, 255, 150);
+        noStroke();
+        ellipse(position.x + 3, position.y - 4, 4, 4);
+        fill(255, 255, 255, 40);
+        ellipse(position.x + 1, position.y - 2, 12, 12)
         pop();
     }
 }
