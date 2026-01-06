@@ -1,7 +1,5 @@
 class Cue {
-
     constructor() {
-        this.length = 100;
     }
 
     draw(targetX, targetY) {

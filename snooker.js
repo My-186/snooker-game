@@ -34,6 +34,8 @@ const balls = [
 ];
 const cue = new Cue();
 
+var allowNextShot = false;
+
 function setup() {
     const canvas = createCanvas(CANVAS_WIDTH, CANVAS_HEIGHT);
 
@@ -52,16 +54,23 @@ function draw() {
     // cue.draw(whiteBall.posX, whiteBall.posY);
 
     checkBallsInPocket();
+    checkBallsStopped();
+
+    if (allowNextShot) {
+        cue.draw(whiteBall.posX(), whiteBall.posY());
+    }
 
     Engine.update(engine);
 }
 
 function mouseClicked() {
-    let speed = 0.007;
-    let vector = { x: mouseX - whiteBall.body.position.x , y: mouseY - whiteBall.body.position.y }; // ball-to-mouse vector
-    let vectorLength = Math.sqrt(Math.pow(vector.x, 2) + Math.pow(vector.y, 2));
-    let movementVector = {x: (vector.x / vectorLength) * speed, y: (vector.y / vectorLength) * speed}; // normalized vector * speed
-    Matter.Body.applyForce(whiteBall.body, whiteBall.body.position, movementVector); 
+    if (allowNextShot) {
+        let speed = 0.007 * (-1);
+        let vector = { x: mouseX - whiteBall.posX() , y: mouseY - whiteBall.posY() }; // ball-to-mouse vector
+        let vectorLength = Math.sqrt(Math.pow(vector.x, 2) + Math.pow(vector.y, 2));
+        let movementVector = {x: (vector.x / vectorLength) * speed, y: (vector.y / vectorLength) * speed}; // normalized vector * speed
+        Matter.Body.applyForce(whiteBall.body, whiteBall.body.position, movementVector); 
+    }
 }
 
 
@@ -74,4 +83,7 @@ function checkBallsInPocket() {
     }
 } 
 
-
+function checkBallsStopped() {
+    const bodies = balls.map((ball) => ball.body);
+    allowNextShot = allBodiesStopped(bodies)
+}
