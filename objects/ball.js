@@ -2,7 +2,13 @@ class Ball {
     constructor(posX, posY, color) {
         this.color = color;
         this.diameter = 17;
-        this.body = Bodies.circle(posX, posY, this.diameter/2, {restitution : .8});
+        this.body = Bodies.circle(posX, posY, this.diameter/2, {
+            density: 0.001,
+            friction: 0.05,
+            frictionStatic: 0,
+            frictionAir: 0.015, // Adjust this to make the table "faster" or "slower"
+            restitution: 0.96   // High bounciness for realistic collisions
+        });
     }
 
     posX() {
