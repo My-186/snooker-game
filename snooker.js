@@ -33,11 +33,6 @@ const balls = [
     whiteBall
 ];
 const cue = new Cue();
-const pockets = [
-    new Pocket(100, 100),// upper left
-]
-
-
 
 function setup() {
     const canvas = createCanvas(CANVAS_WIDTH, CANVAS_HEIGHT);
@@ -53,7 +48,6 @@ function setup() {
 function draw() {
     background(255);
     table.draw();
-    pockets.forEach((pocket) => pocket.draw());
     balls.forEach((ball) => ball.draw());
     // cue.draw(whiteBall.posX, whiteBall.posY);
 
@@ -73,23 +67,11 @@ function mouseClicked() {
 
 function checkBallsInPocket() {
     for (let i = 0; i < balls.length; i++) {
-        if (isBallInPocket(balls[i])) {
+        if (table.isBallInPocket(balls[i])) {
             World.remove(engine.world, balls[i]); // delete the ball that falled into a hole
             balls.splice(i, 1);            // remove that ball out of all the balls
         }
     }
 } 
-
-
-function isBallInPocket(ball) {
-  for (let pocket of pockets) {
-    let d = dist(ball.posX(), ball.posY(), pocket.posX, pocket.posY);
-
-    if (d < pocket.radius()) {
-        return true;
-    }
-  }
-  return false;
-}
 
 

@@ -7,15 +7,15 @@ class Table {
         this.tableHeight = this.fieldHeight + this.borderWidth * 2;
         this.posX = 50;
         this.posY = 50;
-        // this.holeDiameter = 30;
-        // this.holes = [
-        //     [this.posX + this.borderWidth, this.posY + this.borderWidth], // upper left
-        //     [(this.posX + this.tableWidth) - this.borderWidth, this.posY + this.borderWidth], // upper right
-        //     [this.posX + this.fieldWidth / 2 + this.borderWidth, this.posY + this.borderWidth], // upper middle
-        //     [this.posX + this.borderWidth, (this.posY + this.tableHeight) - this.borderWidth], // lower left
-        //     [(this.posX + this.tableWidth) - this.borderWidth, (this.posY + this.tableHeight) - this.borderWidth], // lower right
-        //     [this.posX +  this.fieldWidth / 2 + this.borderWidth, (this.posY + this.tableHeight) - this.borderWidth] // lower middle
-        // ];
+    
+        this.pockets = [
+    　　    new Pocket(this.posX + this.borderWidth + 10.6, this.posY + this.borderWidth + 10.6),// upper left
+      　　  new Pocket((this.posX + this.tableWidth) - this.borderWidth - 10.6, this.posY + this.borderWidth + 10.6),// upper right4
+            //     [this.posX + this.fieldWidth / 2 + this.borderWidth, this.posY + this.borderWidth], // upper middle
+            new Pocket(this.posX + this.borderWidth + 10.6, (this.posY + this.tableHeight) - this.borderWidth - 10.6),// lower left
+            new Pocket((this.posX + this.tableWidth) - this.borderWidth - 10.6, (this.posY + this.tableHeight) - this.borderWidth - 10.6),// lower right 
+        　　//     [this.posX +  this.fieldWidth / 2 + this.borderWidth, (this.posY + this.tableHeight) - this.borderWidth] // lower middle
+　　　　]
 
         this.upperWallPos = {x: this.posX + this.borderWidth + this.fieldWidth / 2, y: this.posY + this.borderWidth / 2};
         this.lowerWallPos = {x: this.posX + this.borderWidth + this.fieldWidth / 2, y: this.posY + this.fieldHeight + this.borderWidth * 1.5};
@@ -23,11 +23,22 @@ class Table {
         this.rightWallPos = {x: this.posX + this.fieldWidth + this.borderWidth * 1.5, y: this.posY + this.borderWidth + this.fieldHeight / 2};
 
         this.walls = [
-            Bodies.rectangle(this.upperWallPos.x, this.upperWallPos.y, this.fieldWidth,  this.borderWidth, {isStatic: true}),
-            Bodies.rectangle(this.lowerWallPos.x, this.lowerWallPos.y, this.fieldWidth,  this.borderWidth, {isStatic: true}),
-            Bodies.rectangle(this.leftWallPos.x, this.leftWallPos.y, this.borderWidth,  this.fieldHeight, {isStatic: true}),
-            Bodies.rectangle(this.rightWallPos.x, this.rightWallPos.y, this.borderWidth,  this.fieldHeight, {isStatic: true}),
+            Bodies.rectangle(this.upperWallPos.x, this.upperWallPos.y, this.fieldWidth - 42,  this.borderWidth, {isStatic: true}),
+            Bodies.rectangle(this.lowerWallPos.x, this.lowerWallPos.y, this.fieldWidth - 42,  this.borderWidth, {isStatic: true}),
+            Bodies.rectangle(this.leftWallPos.x, this.leftWallPos.y, this.borderWidth,  this.fieldHeight - 42, {isStatic: true}),
+            Bodies.rectangle(this.rightWallPos.x, this.rightWallPos.y, this.borderWidth,  this.fieldHeight - 42, {isStatic: true}),
         ];
+    }
+
+    isBallInPocket(ball) {
+        for (let pocket of this.pockets) {
+            let d = dist(ball.posX(), ball.posY(), pocket.posX, pocket.posY);
+
+            if (d < pocket.radius()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     draw() {
@@ -45,8 +56,8 @@ class Table {
         noStroke();
         rect(this.fieldWidth/3 + 1, this.posY + this.fieldHeight/4, 100, this.fieldHeight /2)
         pop();
+        this.pockets.forEach((pocket) => pocket.draw());
     }
 
 }
-
 　　
