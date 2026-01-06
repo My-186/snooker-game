@@ -30,11 +30,14 @@ const balls = [
     new Ball(500, 480, '#a00b2bff'),
     new Ball(500, 510, '#a00b2bff'),
     new Ball(500, 540, '#a00b2bff'),
-
-
     whiteBall
 ];
 const cue = new Cue();
+const pockets = [
+    new Pocket(100, 100),// upper left
+]
+
+
 
 function setup() {
     const canvas = createCanvas(CANVAS_WIDTH, CANVAS_HEIGHT);
@@ -50,8 +53,11 @@ function setup() {
 function draw() {
     background(255);
     table.draw();
+    pockets.forEach((pocket) => pocket.draw());
     balls.forEach((ball) => ball.draw());
     // cue.draw(whiteBall.posX, whiteBall.posY);
+
+    checkBallsInPocket();
 
     Engine.update(engine);
 }
@@ -63,3 +69,27 @@ function mouseClicked() {
     let movementVector = {x: (vector.x / vectorLength) * speed, y: (vector.y / vectorLength) * speed}; // normalized vector * speed
     Matter.Body.applyForce(whiteBall.body, whiteBall.body.position, movementVector); 
 }
+
+
+function checkBallsInPocket() {
+    for (let i = 0; i < balls.length; i++) {
+        if (isBallInPocket(balls[i])) {
+            World.remove(engine.world, balls[i]); // delete the ball that falled into a hole
+            balls.splice(i, 1);            // remove that ball out of all the balls
+        }
+    }
+} 
+
+
+function isBallInPocket(ball) {
+  for (let pocket of pockets) {
+    let d = dist(ball.posX(), ball.posY(), pocket.posX, pocket.posY);
+
+    if (d < pocket.radius()) {
+        return true;
+    }
+  }
+  return false;
+}
+
+

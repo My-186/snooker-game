@@ -5,6 +5,14 @@ class Ball {
         this.body = Bodies.circle(posX, posY, this.diameter/2, {restitution : .8});
     }
 
+    posX() {
+        return this.body.position.x;
+    }
+    
+    posY() {
+        return this.body.position.y;
+    }
+
     draw() {
         let position = this.body.position;
         push(); 
