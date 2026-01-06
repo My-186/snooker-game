@@ -50,7 +50,7 @@ function setup() {
     engine = Engine.create();// create an engine
     engine.gravity.scale = 0;
     World.add(engine.world, [
-        ...table.walls,
+        ...table.cushions,
         ...balls.map((ball)=> ball.body)
     ]);
 }
@@ -61,7 +61,7 @@ function draw() {
     balls.forEach((ball) => ball.draw());
     // cue.draw(whiteBall.posX, whiteBall.posY);
 
-    checkBallsInPocket();
+    // checkBallsInPocket();
     checkBallsStopped();
 
     if (allowNextShot) {
@@ -72,8 +72,9 @@ function draw() {
 }
 
 function mouseClicked() {
-    if (allowNextShot) {
-        let speed = 0.007 * (-1);
+    if (true) {
+        // let speed = 0.007 * (-1);
+        let speed = 0.002;
         let vector = { x: mouseX - whiteBall.posX() , y: mouseY - whiteBall.posY() }; // ball-to-mouse vector
         let vectorLength = Math.sqrt(Math.pow(vector.x, 2) + Math.pow(vector.y, 2));
         let movementVector = {x: (vector.x / vectorLength) * speed, y: (vector.y / vectorLength) * speed}; // normalized vector * speed
