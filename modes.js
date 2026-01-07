@@ -7,9 +7,7 @@ function getBallPositions(table, mode) {
         case MODE_TWO:
             return calculateMode2(table);
         case MODE_THREE:
-            return {
-
-            }
+            return calculateMode3(table);
     }
 }
 
@@ -60,8 +58,41 @@ function calculateMode2(table) {
     }
 }
 
+function calculateMode3(table) {
+    const tableCenterPosY = table.posY + table.tableHeight / 2;
+    const ballGap = 5;
+    const pinkPos = { x: table.posX + table.tableWidth * 3 / 4, y: tableCenterPosY };
+
+    return {
+        green: { x: table.linePosX, y: table.posY + table.border + table.fieldHeight / 3 },
+        brown: { x: table.linePosX, y: table.posY + table.border + table.fieldHeight / 2 },
+        yellow: { x: table.linePosX, y: table.posY + table.border + table.fieldHeight * 2 / 3 },
+        blue: { x: table.posX + table.tableWidth / 2, y: tableCenterPosY },
+        pink: pinkPos,
+        black: { x: table.posX + table.tableWidth*7/8, y: tableCenterPosY },
+        white: { x: table.posX + table.tableWidth*5/8, y: tableCenterPosY },
+        reds: [
+            { x: pinkPos.x + (BALL_DIAMETER + ballGap), y: tableCenterPosY },
+            { x: pinkPos.x + (BALL_DIAMETER + ballGap)*2, y: tableCenterPosY },
+            { x: pinkPos.x + (BALL_DIAMETER + ballGap)*3, y: tableCenterPosY },
+            { x: pinkPos.x + (BALL_DIAMETER + ballGap)*4, y: tableCenterPosY },
+            { x: pinkPos.x + (BALL_DIAMETER + ballGap)*5, y: tableCenterPosY },
+            { x: pinkPos.x, y: tableCenterPosY - (BALL_DIAMETER + ballGap) },
+            { x: pinkPos.x, y: tableCenterPosY - (BALL_DIAMETER + ballGap)*2},
+            { x: pinkPos.x, y: tableCenterPosY - (BALL_DIAMETER + ballGap)*3},
+            { x: pinkPos.x, y: tableCenterPosY - (BALL_DIAMETER + ballGap)*4},
+            { x: pinkPos.x, y: tableCenterPosY - (BALL_DIAMETER + ballGap)*5},
+            { x: pinkPos.x, y: tableCenterPosY + (BALL_DIAMETER + ballGap) },
+            { x: pinkPos.x, y: tableCenterPosY + (BALL_DIAMETER + ballGap)*2},
+            { x: pinkPos.x, y: tableCenterPosY + (BALL_DIAMETER + ballGap)*3},
+            { x: pinkPos.x, y: tableCenterPosY + (BALL_DIAMETER + ballGap)*4},
+            { x: pinkPos.x, y: tableCenterPosY + (BALL_DIAMETER + ballGap)*5},
+        ]
+    }
+}
+
 function calculateRedBallClusters(table) {
-    const clusterDiameter = 90;
+    const clusterDiameter = 60;
     const clusterRadius = clusterDiameter/2;
     const reds = [];
 
