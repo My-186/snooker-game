@@ -1,59 +1,37 @@
 //Task/steps
 //1. Define your variables for the table, balls and the cue. Store the balls in appropriate array
 
+const MODE_ONE = 1;
+const MODE_TWO = 2;
+const MODE_THREE = 3;
+const CANVAS_WIDTH = 1400;
+const CANVAS_HEIGHT = 800;
+
 // module aliases
 var Engine = Matter.Engine,
-    Render = Matter.Render,// 必要？
-    World = Matter. World, 
+    World = Matter.World, 
     Bodies = Matter.Bodies;
 
 var engine;
 
+var balls;
 var whiteBall;
-
-const CANVAS_WIDTH = 1400;
-const CANVAS_HEIGHT = 800;
+var table;
+var cue;
+var allowNextShot = false;
 
 // center table in canvas
 const tablePosX = (CANVAS_WIDTH - TABLE_WIDTH) / 2;
 const tablePosY = (CANVAS_HEIGHT - TABLE_HEIGHT) / 2;
-var table = new Table(tablePosX, tablePosY);
-
-var balls = createBalls();
-var cue = new Cue();
-
-var allowNextShot = false;
 
 function setup() {
     const canvas = createCanvas(CANVAS_WIDTH, CANVAS_HEIGHT);
     // position canvas at center
     const canvasPosX = (windowWidth - CANVAS_WIDTH) / 2;
     const canvasPosY = (windowHeight - CANVAS_HEIGHT) / 2;
-    canvas.position(canvasPosX, canvasPosY); 
+    canvas.position(canvasPosX, canvasPosY);
 
-    engine = Engine.create();// create an engine
-    engine.gravity.scale = 0;
-    World.add(engine.world, [
-        ...table.cushions,
-        ...balls.map((ball)=> ball.body)
-    ]);
-}
-
-function draw() {
-    background(255);
-    table.draw();
-    balls.forEach((ball) => ball.draw());
-    cue.draw(whiteBall.posX, whiteBall.posY);
-
-    checkBallsInPocket();
-    checkBallsStopped();
-
-    if (allowNextShot) {
-        updateCuePower();
-        cue.draw(whiteBall.posX(), whiteBall.posY());
-    }
-
-    Engine.update(engine);
+    initGame(MODE_ONE);
 }
 
 function mouseClicked() {
@@ -62,28 +40,33 @@ function mouseClicked() {
     }
 }
 
-function updateCuePower() {
-    let distanceToWhite = dist(mouseX, mouseY, whiteBall.posX(), whiteBall.posY());
-    let normalizedPower = (distanceToWhite / POWER_MAX_THRESHOLD)
-    cue.setPower(normalizedPower);
-}
-
-function checkBallsInPocket() {
-    for (let i = 0; i < balls.length; i++) {
-        if (table.isBallInPocket(balls[i])) {
-            World.remove(engine.world, balls[i]); // delete the ball that falled into a hole
-            balls.splice(i, 1);            // remove that ball out of all the balls
-        }
+function keyPressed() {
+    if (keyCode === 49) {
+        initGame(MODE_ONE);
+    } else if (keyCode === 50) {
+        initGame(MODE_TWO);
+    } else if (keyCode === 51) {
+        initGame(MODE_THREE);
     }
-} 
-
-function checkBallsStopped() {
-    const bodies = balls.map((ball) => ball.body);
-    allowNextShot = allBodiesStopped(bodies)
 }
 
-function createBalls() {
-    const ballPositions = table.getBallPositions();
+function initGame(mode) {
+    // init engine
+    engine = Engine.create();// create an engine
+    engine.gravity.scale = 0;
+
+    table = new Table(tablePosX, tablePosY);
+    cue = new Cue();
+
+    balls = createBalls(mode);
+    World.add(engine.world, [
+        ...table.cushions,
+        ...balls.map((ball)=> ball.body)
+    ]);
+}
+
+function createBalls(mode) {
+    const ballPositions = getBallPositions(table, mode);
     whiteBall = new Ball(ballPositions.white.x, ballPositions.white.y, '#f5f5dbff');
     const blackBall = new Ball(ballPositions.black.x, ballPositions.black.y, '#0a0a0aff');
     const pinkBall = new Ball(ballPositions.pink.x, ballPositions.pink.y, '#ff76adff');
@@ -109,4 +92,41 @@ function createBalls() {
     }
 
     return balls;
+}
+
+function draw() {
+    background(255);
+    table.draw();
+    balls.forEach((ball) => ball.draw());
+    cue.draw(whiteBall.posX, whiteBall.posY);
+
+    checkBallsInPocket();
+    checkBallsStopped();
+
+    if (allowNextShot) {
+        updateCuePower();
+        cue.draw(whiteBall.posX(), whiteBall.posY());
+    }
+
+    Engine.update(engine);
+}
+
+function updateCuePower() {
+    let distanceToWhite = dist(mouseX, mouseY, whiteBall.posX(), whiteBall.posY());
+    let normalizedPower = (distanceToWhite / POWER_MAX_THRESHOLD)
+    cue.setPower(normalizedPower);
+}
+
+function checkBallsInPocket() {
+    for (let i = 0; i < balls.length; i++) {
+        if (table.isBallInPocket(balls[i])) {
+            World.remove(engine.world, balls[i]); // delete the ball that falled into a hole
+            balls.splice(i, 1);            // remove that ball out of all the balls
+        }
+    }
+} 
+
+function checkBallsStopped() {
+    const bodies = balls.map((ball) => ball.body);
+    allowNextShot = allBodiesStopped(bodies)
 }

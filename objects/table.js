@@ -58,38 +58,6 @@ class Table {
         this.linePosX = this.fieldWidth/3;
     }
 
-    getBallPositions() {
-        const tableCenterPosY = this.posY + this.tableHeight/2;
-        const firstRedPosX = this.posX + this.tableWidth*3/4 + BALL_DIAMETER;
-
-        return {
-            green: {x: this.linePosX, y: this.posY + this.border + this.fieldHeight/3},
-            brown: {x: this.linePosX, y: this.posY + this.border + this.fieldHeight/2},
-            yellow: {x: this.linePosX, y: this.posY + this.border + this.fieldHeight*2/3},
-            blue: {x: this.posX + this.tableWidth/2, y: tableCenterPosY},
-            pink: {x: this.posX + this.tableWidth*3/4, y: tableCenterPosY},
-            black: {x: this.posX + this.tableWidth*7/8, y: tableCenterPosY},
-            white: {x: this.linePosX - this.tableHeight/6, y: tableCenterPosY},
-            reds: [
-                {x: firstRedPosX, y: tableCenterPosY},
-                {x: firstRedPosX + 15, y: tableCenterPosY - BALL_DIAMETER/2},
-                {x: firstRedPosX + 15, y: tableCenterPosY + BALL_DIAMETER/2},
-                {x: firstRedPosX + 15 + 15, y: tableCenterPosY - BALL_DIAMETER},
-                {x: firstRedPosX + 15 + 15, y: tableCenterPosY},
-                {x: firstRedPosX + 15 + 15, y: tableCenterPosY + BALL_DIAMETER},
-                {x: firstRedPosX + 15 + 15 + 15, y: tableCenterPosY - BALL_DIAMETER*1.5},
-                {x: firstRedPosX + 15 + 15 + 15, y: tableCenterPosY - BALL_DIAMETER/2},
-                {x: firstRedPosX + 15 + 15 + 15, y: tableCenterPosY + BALL_DIAMETER/2},
-                {x: firstRedPosX + 15 + 15 + 15, y: tableCenterPosY + BALL_DIAMETER*1.5},
-                {x: firstRedPosX + 15 + 15 + 15 + 15, y: tableCenterPosY - 2*BALL_DIAMETER},
-                {x: firstRedPosX + 15 + 15 + 15 + 15, y: tableCenterPosY - BALL_DIAMETER},
-                {x: firstRedPosX + 15 + 15 + 15 + 15, y: tableCenterPosY},
-                {x: firstRedPosX + 15 + 15 + 15 + 15, y: tableCenterPosY + BALL_DIAMETER},
-                {x: firstRedPosX + 15 + 15 + 15 + 15, y: tableCenterPosY + 2*BALL_DIAMETER},
-            ]
-        }
-    } 
-
     isBallInPocket(ball) {
         for (let pocket of this.pockets) {
             let d = dist(ball.posX(), ball.posY(), pocket.posX, pocket.posY);
