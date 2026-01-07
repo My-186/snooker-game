@@ -16,13 +16,13 @@ class Cue {
         let powerBarY = targetY - 30;
         let powerBarThickness = 5;
         let powerInPercent = this.power / MAX_POWER * 100
-        stroke(0);
+        stroke(255, 255, 255, 150);
         strokeWeight(2);
         noFill();
-        rect(powerBarX, powerBarY, 100, powerBarThickness);
+        rect(powerBarX, powerBarY, 100, powerBarThickness, 20);
         noStroke();
         fill(220, 0, 0);
-        rect(powerBarX, powerBarY, powerInPercent, powerBarThickness);
+        rect(powerBarX, powerBarY, powerInPercent, powerBarThickness, 20);
         pop();
     }
 
