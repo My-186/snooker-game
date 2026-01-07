@@ -9,49 +9,18 @@ var Engine = Matter.Engine,
 
 var engine;
 
+var whiteBall;
+
 const CANVAS_WIDTH = 1400;
 const CANVAS_HEIGHT = 800;
 
 // center table in canvas
 const tablePosX = (CANVAS_WIDTH - TABLE_WIDTH) / 2;
 const tablePosY = (CANVAS_HEIGHT - TABLE_HEIGHT) / 2;
-const table = new Table(tablePosX, tablePosY);
+var table = new Table(tablePosX, tablePosY);
 
-const ballPositions = table.getBallPositions();
-const whiteBall = new Ball(ballPositions.white.x, ballPositions.white.y, '#f5f5dbff');
-const blackBall = new Ball(ballPositions.black.x, ballPositions.black.y, '#0a0a0aff');
-const pinkBall = new Ball(ballPositions.pink.x, ballPositions.pink.y, '#ff76adff');
-const blueBall = new Ball(ballPositions.blue.x, ballPositions.blue.y, '#0e53a8ff');
-const yellowBall = new Ball(ballPositions.yellow.x, ballPositions.yellow.y, '#fdb043ff');
-const browBall = new Ball(ballPositions.brown.x, ballPositions.brown.y, '#764314ff');
-const greenBall = new Ball(ballPositions.green.x, ballPositions.green.y, '#054c1eff');
-const redBallColor = '#b81337ff';
-
-const balls = [
-    new Ball(ballPositions.reds[0].x, ballPositions.reds[0].y, redBallColor),
-    new Ball(ballPositions.reds[1].x, ballPositions.reds[1].y, redBallColor),
-    new Ball(ballPositions.reds[2].x, ballPositions.reds[2].y, redBallColor),
-    new Ball(ballPositions.reds[3].x, ballPositions.reds[3].y, redBallColor),
-    new Ball(ballPositions.reds[4].x, ballPositions.reds[4].y, redBallColor),
-    new Ball(ballPositions.reds[5].x, ballPositions.reds[5].y, redBallColor),
-    new Ball(ballPositions.reds[6].x, ballPositions.reds[6].y, redBallColor),
-    new Ball(ballPositions.reds[7].x, ballPositions.reds[7].y, redBallColor),
-    new Ball(ballPositions.reds[8].x, ballPositions.reds[8].y, redBallColor),
-    new Ball(ballPositions.reds[9].x, ballPositions.reds[9].y, redBallColor),
-    new Ball(ballPositions.reds[10].x, ballPositions.reds[10].y, redBallColor),
-    new Ball(ballPositions.reds[11].x, ballPositions.reds[11].y, redBallColor),
-    new Ball(ballPositions.reds[12].x, ballPositions.reds[12].y, redBallColor),
-    new Ball(ballPositions.reds[13].x, ballPositions.reds[13].y, redBallColor),
-    new Ball(ballPositions.reds[14].x, ballPositions.reds[14].y, redBallColor),
-    blackBall,
-    pinkBall,
-    blueBall,
-    yellowBall,
-    browBall,
-    greenBall,
-    whiteBall
-];
-const cue = new Cue();
+var balls = createBalls();
+var cue = new Cue();
 
 var allowNextShot = false;
 
@@ -108,4 +77,33 @@ function checkBallsInPocket() {
 function checkBallsStopped() {
     const bodies = balls.map((ball) => ball.body);
     allowNextShot = allBodiesStopped(bodies)
+}
+
+function createBalls() {
+    const ballPositions = table.getBallPositions();
+    whiteBall = new Ball(ballPositions.white.x, ballPositions.white.y, '#f5f5dbff');
+    const blackBall = new Ball(ballPositions.black.x, ballPositions.black.y, '#0a0a0aff');
+    const pinkBall = new Ball(ballPositions.pink.x, ballPositions.pink.y, '#ff76adff');
+    const blueBall = new Ball(ballPositions.blue.x, ballPositions.blue.y, '#0e53a8ff');
+    const yellowBall = new Ball(ballPositions.yellow.x, ballPositions.yellow.y, '#fdb043ff');
+    const browBall = new Ball(ballPositions.brown.x, ballPositions.brown.y, '#764314ff');
+    const greenBall = new Ball(ballPositions.green.x, ballPositions.green.y, '#054c1eff');
+
+    const balls = [
+        blackBall,
+        pinkBall,
+        blueBall,
+        yellowBall,
+        browBall,
+        greenBall,
+        whiteBall
+    ];
+
+    const redBallColor = '#b81337ff';
+    for (let i = 0; i < ballPositions.reds.length; i++) {
+        let ballPos = ballPositions.reds[i];
+        balls.push(new Ball(ballPos.x, ballPos.y, redBallColor));
+    }
+
+    return balls;
 }
