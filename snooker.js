@@ -1,11 +1,6 @@
-//Task/steps
-//1. Define your variables for the table, balls and the cue. Store the balls in appropriate array
-
 const MODE_ONE = 1;
 const MODE_TWO = 2;
 const MODE_THREE = 3;
-const CANVAS_WIDTH = 1400;
-const CANVAS_HEIGHT = 800;
 
 // module aliases
 var Engine = Matter.Engine,
@@ -20,16 +15,11 @@ var table;
 var cue;
 var allowNextShot = false;
 
-// center table in canvas
-const tablePosX = (CANVAS_WIDTH - TABLE_WIDTH) / 2;
-const tablePosY = (CANVAS_HEIGHT - TABLE_HEIGHT) / 2;
-
 function setup() {
+    // create canvas as big as the current window
     const canvas = createCanvas(windowWidth, windowHeight);
-    // position canvas at center
-    const canvasPosX = (windowWidth - CANVAS_WIDTH) / 2;
-    const canvasPosY = (windowHeight - CANVAS_HEIGHT) / 2;
-    canvas.position(canvasPosX, canvasPosY);
+    // position canvas at the corner of the screen
+    canvas.position(0, 0);
 
     initGame(MODE_ONE);
 }
@@ -55,6 +45,9 @@ function initGame(mode) {
     engine = Engine.create();// create an engine
     engine.gravity.scale = 0;
 
+    // center table in the middle of the canvas
+    const tablePosX = (windowWidth - TABLE_WIDTH) / 2;
+    const tablePosY = (windowHeight - TABLE_HEIGHT) / 2;
     table = new Table(tablePosX, tablePosY);
     cue = new Cue();
 
@@ -120,8 +113,10 @@ function updateCuePower() {
 function checkBallsInPocket() {
     for (let i = 0; i < balls.length; i++) {
         if (table.isBallInPocket(balls[i])) {
-            World.remove(engine.world, balls[i]); // delete the ball that falled into a hole
-            balls.splice(i, 1);            // remove that ball out of all the balls
+            // delete the ball that falled into a hole
+            World.remove(engine.world, balls[i]); 
+            // remove that ball out of all the balls
+            balls.splice(i, 1);            
         }
     }
 } 

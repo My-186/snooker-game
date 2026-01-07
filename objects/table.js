@@ -55,7 +55,7 @@ class Table {
                 { isStatic: true, angle: -Math.PI/2, restitution: 0.8, friction: 0.1 }),
         ];
 
-        this.linePosX = this.fieldWidth/3;
+        this.linePosX = this.posX + this.border + this.fieldWidth/4;
     }
 
     isBallInPocket(ball) {

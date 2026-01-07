@@ -68,7 +68,7 @@ class Cue {
         let power = cue.power / POWER_REDUCTION;
         // calculate ball-to-mouse vector
         let vector = { x: targetBall.posX() - mouseX , y: targetBall.posY() - mouseY };
-        // normalizatie and multiply by power
+        // normalize and multiply by power
         let vectorLength = Math.sqrt(Math.pow(vector.x, 2) + Math.pow(vector.y, 2)); 
         let shootVector = {x: (vector.x / vectorLength) * power, y: (vector.y / vectorLength) * power};
         // apply vector to the target

@@ -1,4 +1,4 @@
-BALL_DIAMETER = 17;
+const BALL_DIAMETER = 17;
 
 class Ball {
     constructor(posX, posY, color) {

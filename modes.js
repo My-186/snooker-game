@@ -140,4 +140,3 @@ function getRandomPosInCircle(center, radius) {
         y: center.y + (vector.y / vectorLength) * randDistance
     };
 }
-
