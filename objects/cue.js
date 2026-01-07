@@ -1,5 +1,6 @@
-const POWER_ADJUSTMENT_STEP = 0.01;
-const POWER_MAX_THRESHOLD = 300;
+const POWER_MAX_THRESHOLD = 200; // determines after what distance max power is reached
+const POWER_REDUCTION = 50; // used to reduce force that is applied to the vector
+const MAX_POWER = 0.8;
 
 class Cue {
     constructor() {
@@ -14,20 +15,21 @@ class Cue {
         let powerBarX = targetX - 50;
         let powerBarY = targetY - 30;
         let powerBarThickness = 5;
-
+        let powerInPercent = this.power / MAX_POWER * 100
         stroke(0);
         strokeWeight(2);
         noFill();
         rect(powerBarX, powerBarY, 100, powerBarThickness);
         noStroke();
         fill(220, 0, 0);
-        rect(powerBarX, powerBarY, this.power*100, powerBarThickness);
+        rect(powerBarX, powerBarY, powerInPercent, powerBarThickness);
         pop();
     }
 
     setPower(power) {
-        if (power > 1) {
-            this.power = 1;
+        // only allow power between 0 and MAX_POWER
+        if (power > MAX_POWER) {
+            this.power = MAX_POWER;
         } else if (power < 0) {
             this.power = 0;
         } else {
@@ -35,16 +37,15 @@ class Cue {
         }
     }
 
-    increasePower() {
-        if (this.power + POWER_ADJUSTMENT_STEP <= 1) {
-            this.power += POWER_ADJUSTMENT_STEP;
-        }
-    }
-
-    decreasePower() {
-        if (this.power - POWER_ADJUSTMENT_STEP >= 0) {
-            this.power -= POWER_ADJUSTMENT_STEP;
-        }
+    shoot(targetBall) {
+        let power = cue.power / POWER_REDUCTION;
+        // calculate ball-to-mouse vector
+        let vector = { x: targetBall.posX() - mouseX , y: targetBall.posY() - mouseY };
+        // normalizatie and multiply by power
+        let vectorLength = Math.sqrt(Math.pow(vector.x, 2) + Math.pow(vector.y, 2)); 
+        let shootVector = {x: (vector.x / vectorLength) * power, y: (vector.y / vectorLength) * power};
+        // apply vector to the target
+        Matter.Body.applyForce(targetBall.body, targetBall.body.position, shootVector); 
     }
 }
 
