@@ -75,5 +75,3 @@ class Cue {
         Matter.Body.applyForce(targetBall.body, targetBall.body.position, shootVector); 
     }
 }
-
-

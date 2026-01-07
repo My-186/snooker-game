@@ -1,6 +1,4 @@
 function getBallPositions(table, mode) {
-    const tableCenterPosY = table.posY + table.tableHeight / 2;
-
     switch (mode) {
         case MODE_ONE:
             return calculateMode1(table);
@@ -14,6 +12,7 @@ function getBallPositions(table, mode) {
 function calculateMode1(table) {
     const tableCenterPosY = table.posY + table.tableHeight / 2;
     const firstRedPosX = table.posX + table.tableWidth * 3 / 4 + BALL_DIAMETER;
+    
     return {
         green: { x: table.linePosX, y: table.posY + table.border + table.fieldHeight / 3 },
         brown: { x: table.linePosX, y: table.posY + table.border + table.fieldHeight / 2 },
@@ -132,7 +131,7 @@ function getRandomPosInCircle(center, radius) {
     const randPosY = getRandomValue(center.y - radius, center.y + radius);
     const vector = { x: center.x - randPosX, y: center.y - randPosY };
 
-    // normalizatie and multiply by power
+    // normalize and multiply by power
     let vectorLength = Math.sqrt(Math.pow(vector.x, 2) + Math.pow(vector.y, 2));
     let randDistance = getRandomValue(-radius, radius);
     return {

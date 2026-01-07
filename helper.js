@@ -1,5 +1,5 @@
 
-const STOP_THRESHOLD = 0.01;
+const BODY_STOP_THRESHOLD = 0.01;
 
 function allBodiesStopped(bodies) {
     for (let i = 0; i < bodies.length; i++) {
@@ -12,12 +12,11 @@ function allBodiesStopped(bodies) {
 
 function isMoving(body) {
     // check linear speed
-    if (body.speed > STOP_THRESHOLD) {
+    if (body.speed > BODY_STOP_THRESHOLD) {
         return true;
     }
-
     // check rotational speed
-    if (body.angularSpeed > STOP_THRESHOLD) {
+    if (body.angularSpeed > BODY_STOP_THRESHOLD) {
         return true;
     }
     return false;
