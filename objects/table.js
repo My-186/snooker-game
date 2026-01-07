@@ -199,10 +199,3 @@ class Pocket {
         ellipse(this.posX, this.posY, this.diameter);
     }
 }
-
-class Cushion {
-    constructor(posX, posY) {
-        this.posX = posX;
-        this.posY = posY
-    }
-}

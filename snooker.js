@@ -49,6 +49,7 @@ function draw() {
     checkBallsStopped();
 
     if (allowNextShot) {
+        checkCuePowerChange();
         cue.draw(whiteBall.posX(), whiteBall.posY());
     }
 
@@ -57,12 +58,19 @@ function draw() {
 
 function mouseClicked() {
     if (allowNextShot) {
-        let speed = 0.007 * (-1);
+        let power = cue.power * (-1) / 50;
         let vector = { x: mouseX - whiteBall.posX() , y: mouseY - whiteBall.posY() }; // ball-to-mouse vector
         let vectorLength = Math.sqrt(Math.pow(vector.x, 2) + Math.pow(vector.y, 2));
-        let movementVector = {x: (vector.x / vectorLength) * speed, y: (vector.y / vectorLength) * speed}; // normalized vector * speed
+        let movementVector = {x: (vector.x / vectorLength) * power, y: (vector.y / vectorLength) * power}; // normalized vector * speed
+        console.log(movementVector);
         Matter.Body.applyForce(whiteBall.body, whiteBall.body.position, movementVector); 
     }
+}
+
+function checkCuePowerChange() {
+    let distanceToWhite = dist(mouseX, mouseY, whiteBall.posX(), whiteBall.posY());
+    let normalizedPower = (distanceToWhite / POWER_MAX_THRESHOLD)
+    cue.setPower(normalizedPower);
 }
 
 function checkBallsInPocket() {
