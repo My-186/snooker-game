@@ -25,7 +25,7 @@ const tablePosX = (CANVAS_WIDTH - TABLE_WIDTH) / 2;
 const tablePosY = (CANVAS_HEIGHT - TABLE_HEIGHT) / 2;
 
 function setup() {
-    const canvas = createCanvas(CANVAS_WIDTH, CANVAS_HEIGHT);
+    const canvas = createCanvas(windowWidth, windowHeight);
     // position canvas at center
     const canvasPosX = (windowWidth - CANVAS_WIDTH) / 2;
     const canvasPosY = (windowHeight - CANVAS_HEIGHT) / 2;
